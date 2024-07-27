@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { F1Component } from '@/component/f1-component';
+import F1Component from '../component/f1-component';
 
 const Page = () => {
   return (
