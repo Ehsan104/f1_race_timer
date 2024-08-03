@@ -1,6 +1,6 @@
 // src/components/F1RaceData.tsx
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Papa from 'papaparse';
 
 interface Race {
@@ -11,12 +11,11 @@ interface Race {
 
 interface F1RaceDataProps {
   setNextRaceDate: (date: string) => void;
+  setNextRace: (race: string) => void;
+  setFutureRaces: (races: Race[]) => void;
 }
 
-const F1RaceData: React.FC<F1RaceDataProps> = ({ setNextRaceDate }) => {
-  const [data, setData] = useState<Race[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
+const F1RaceData: React.FC<F1RaceDataProps> = ({ setNextRaceDate, setNextRace, setFutureRaces }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,47 +24,33 @@ const F1RaceData: React.FC<F1RaceDataProps> = ({ setNextRaceDate }) => {
           throw new Error('Network response was not ok');
         }
         const csvData = await response.text();
+        console.log('CSV Data:', csvData);
 
         Papa.parse<Race>(csvData, {
           header: true,
           complete: (results) => {
             console.log('Parsed CSV data:', results.data);
-            setData(results.data);
-            if (results.data.length > 0) {
-              const nextRace = results.data.find(race => new Date(race.Date) > new Date());
-              if (nextRace) {
-                setNextRaceDate(nextRace.Date);
-              }
+            const futureRaces = results.data.filter(race => new Date(race.Date) > new Date());
+            setFutureRaces(futureRaces);
+            if (futureRaces.length > 0) {
+              const nextRace = futureRaces[0];
+              setNextRaceDate(nextRace.Date);
+              setNextRace(`${nextRace.Grand_Prix} at ${nextRace.Location}`);
             }
           },
-          error: (error: any) => {
+          error: (error: {message: string}) => {
             throw new Error(error.message);
           }
         });
       } catch (error: any) {
-        setError(error.message);
+        console.error('Error fetching or parsing CSV data:', error);
       }
     };
 
     fetchData();
-  }, [setNextRaceDate]);
+  }, [setNextRaceDate, setNextRace, setFutureRaces]);
 
-  return (
-    <div>
-      <h2>F1 Race Data</h2>
-      {error ? (
-        <p>Error fetching data: {error}</p>
-      ) : data.length > 0 ? (
-        <ul>
-          {data.map((race, index) => (
-            <li key={index}>{race.Location} - {race.Grand_Prix} - {race.Date}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading data...</p>
-      )}
-    </div>
-  );
+  return null;
 };
 
 export default F1RaceData;

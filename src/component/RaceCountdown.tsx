@@ -1,6 +1,7 @@
 // src/components/RaceCountdown.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
+import { toZonedTime, format } from 'date-fns-tz';
 
 interface TimeRemaining {
   days: number;
@@ -9,9 +10,9 @@ interface TimeRemaining {
   seconds: number;
 }
 
-const calculateTimeRemaining = (raceDate: string): TimeRemaining | null => {
+const calculateTimeRemaining = (raceDate: string, timeZone: string): TimeRemaining | null => {
   const now = new Date();
-  const raceDateObj = new Date(raceDate);
+  const raceDateObj = toZonedTime(new Date(raceDate), timeZone);
 
   // Ensure the race date is valid
   if (isNaN(raceDateObj.getTime())) {
@@ -38,25 +39,33 @@ const calculateTimeRemaining = (raceDate: string): TimeRemaining | null => {
 
 interface RaceCountdownProps {
   raceDate: string;
+  onRaceEnd: () => void;
 }
 
-const RaceCountdown: React.FC<RaceCountdownProps> = ({ raceDate }) => {
-  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining | null>(calculateTimeRemaining(raceDate));
+const RaceCountdown: React.FC<RaceCountdownProps> = ({ raceDate, onRaceEnd }) => {
+  const timeZone = 'America/Los_Angeles'; // Adjust this to your desired timezone
+  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining | null>(calculateTimeRemaining(raceDate, timeZone));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeRemaining(calculateTimeRemaining(raceDate));
+      const remainingTime = calculateTimeRemaining(raceDate, timeZone);
+      if (!remainingTime) {
+        clearInterval(intervalId);
+        onRaceEnd();
+      } else {
+        setTimeRemaining(remainingTime);
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [raceDate]);
+  }, [raceDate, onRaceEnd]);
 
   if (!timeRemaining) {
     return <div>Race date is in the past or invalid</div>;
   }
 
   return (
-    <div className="text-center">
+    <div className="countdown">
       <h1 className="text-xl font-bold">Next F1 Race Countdown</h1>
       <p className="text-lg">
         {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s
