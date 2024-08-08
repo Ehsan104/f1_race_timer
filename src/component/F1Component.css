@@ -1,10 +1,10 @@
 /* src/components/F1Component.css */
 body {
-    background-color: black;
+    background-color: #121212; /* Darker background for a sleek look */
     color: white;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif; /* Clean, modern font */
   }
   
   .f1-container {
@@ -16,35 +16,48 @@ body {
   }
   
   .header {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
   
   .next-race {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
   }
   
   .countdown {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
   
   .time-circles {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
   
   .circular-timer {
     position: relative;
     width: 120px;
     height: 120px;
+    background-color: #1e1e1e; /* Slightly lighter background within the circles */
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .progress-circle {
     transform: rotate(-90deg);
+  }
+  
+  .progress-circle-bar {
+    transition: stroke-dashoffset 1s ease-in-out; /* Smooth animation for the timer */
   }
   
   .circle-label {
@@ -56,20 +69,23 @@ body {
   }
   
   .circle-value {
-    font-size: 1.5rem;
-    line-height: 1.5rem;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    font-weight: bold;
   }
   
   .circle-text {
     font-size: 1rem;
     margin-top: 0.25rem;
+    color: #b0b0b0; /* Slightly lighter for a softer look */
   }
   
   .separator {
     width: 80%;
-    height: 1px;
-    background-color: white;
-    margin: 20px 0;
+    height: 2px;
+    background-color: #282828;
+    margin: 30px 0;
+    border-radius: 1px;
   }
   
   .future-races {
@@ -77,31 +93,41 @@ body {
   }
   
   .future-races h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
   }
   
   .future-races-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
   }
   
   .race-box {
-    background-color: grey;
-    padding: 10px;
-    border-radius: 5px;
-    width: 150px;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 10px;
+    width: 180px;
     text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .race-box:hover {
+    transform: translateY(-5px); /* Subtle hover effect */
+    background-color: #2c2c2c; /* Slightly lighter on hover */
   }
   
   .race-title {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    font-weight: 600;
   }
   
   .race-date {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    color: #b0b0b0;
   }
   

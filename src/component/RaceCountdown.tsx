@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { toZonedTime } from 'date-fns-tz';
+import { fromZonedTime, toZonedTime, formatInTimeZone } from 'date-fns-tz';
 
 interface TimeRemaining {
   days: number;
@@ -11,9 +11,11 @@ interface TimeRemaining {
 
 const calculateTimeRemaining = (raceDate: string, timeZone: string): TimeRemaining | null => {
   const now = new Date();
-  
-  // Convert current time and race time to the desired timezone
+
+  // Convert now to the specified time zone
   const nowInZone = toZonedTime(now, timeZone);
+
+  // Convert race date to a Date object in the specified time zone
   const raceDateObj = toZonedTime(new Date(raceDate), timeZone);
 
   const timeDifference = raceDateObj.getTime() - nowInZone.getTime();
@@ -76,12 +78,12 @@ const CircularProgress = ({ value, max, label, color }: { value: number; max: nu
 };
 
 interface RaceCountdownProps {
-  raceDate: string;
+  raceDate: string; // This should include both the date and the time, e.g., '2024-08-25T06:00:00'
+  timeZone: string;
   onRaceEnd: () => void;
 }
 
-const RaceCountdown: React.FC<RaceCountdownProps> = ({ raceDate, onRaceEnd }) => {
-  const timeZone = 'America/Los_Angeles'; // Adjust this to your desired timezone
+const RaceCountdown: React.FC<RaceCountdownProps> = ({ raceDate, timeZone, onRaceEnd }) => {
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining | null>(calculateTimeRemaining(raceDate, timeZone));
 
   useEffect(() => {
@@ -96,21 +98,18 @@ const RaceCountdown: React.FC<RaceCountdownProps> = ({ raceDate, onRaceEnd }) =>
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [raceDate, onRaceEnd, timeZone]);
+  }, [raceDate, timeZone, onRaceEnd]);
 
   if (!timeRemaining) {
     return <div>Race date is in the past or invalid</div>;
   }
 
   return (
-    <div className="countdown">
-      <h1 className="text-xl font-bold">Next F1 Race Countdown</h1>
-      <div className="time-circles">
-        <CircularProgress value={timeRemaining.days} max={365} label="Days" color="#ff4500" /> {/* Red for days */}
-        <CircularProgress value={timeRemaining.hours} max={24} label="Hours" color="#f0ad4e" /> {/* Yellow for hours */}
-        <CircularProgress value={timeRemaining.minutes} max={60} label="Minutes" color="#28a745" /> {/* Green for minutes */}
-        <CircularProgress value={timeRemaining.seconds} max={60} label="Seconds" color="#007bff" /> {/* Blue for seconds */}
-      </div>
+    <div className="time-circles">
+      <CircularProgress value={timeRemaining.days} max={365} label="Days" color="#ff4500" /> {/* Red for days */}
+      <CircularProgress value={timeRemaining.hours} max={24} label="Hours" color="#f0ad4e" /> {/* Yellow for hours */}
+      <CircularProgress value={timeRemaining.minutes} max={60} label="Minutes" color="#28a745" /> {/* Green for minutes */}
+      <CircularProgress value={timeRemaining.seconds} max={60} label="Seconds" color="#007bff" /> {/* Blue for seconds */}
     </div>
   );
 };

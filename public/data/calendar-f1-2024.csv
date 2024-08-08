@@ -1,12 +1,12 @@
-Date,Grand_Prix,Location
-2024-07-28,Belgium Grand Prix,Spa
-2024-08-25,Netherlands Grand Prix,Zandvoort NL
-2024-09-01,Italy Grand Prix,Monza IT
-2024-09-15,Azerbaijan Grand Prix,Baku AZ
-2024-09-22,Singapore Grand Prix,Singapore SG
-2024-10-20,USA Grand Prix,Austin USA
-2024-10-27,Mexico Grand Prix,Mexico City MX
-2024-11-03,Brazil Grand Prix,Sao Paulo BR
-2024-11-23,Las Vegas Grand Prix,Las Vegas LAS
-2024-12-01,Qatar Grand Prix,Lusail QA
-2024-12-08,Abu Dhabi Grand Prix,Yas Marina AUH
+Date,Grand_Prix,Location,Start_Time,Time_Zone
+2024-07-28,Belgium Grand Prix,Spa,06:00,Europe/Brussels
+2024-08-25,Netherlands Grand Prix,Zandvoort NL,06:00,Europe/Amsterdam
+2024-09-01,Italy Grand Prix,Monza IT,06:00,Europe/Rome
+2024-09-15,Azerbaijan Grand Prix,Baku AZ,04:00,Asia/Baku
+2024-09-22,Singapore Grand Prix,Singapore SG,05:00,Asia/Singapore
+2024-10-20,USA Grand Prix,Austin USA,12:00,America/Chicago
+2024-10-27,Mexico Grand Prix,Mexico City MX,13:00,America/Mexico_City
+2024-11-03,Brazil Grand Prix,Sao Paulo BR,09:00,America/Sao_Paulo
+2024-11-23,Las Vegas Grand Prix,Las Vegas LAS,22:00,America/Los_Angeles
+2024-12-01,Qatar Grand Prix,Lusail QA,08:00,Asia/Qatar
+2024-12-08,Abu Dhabi Grand Prix,Yas Marina AUH,05:00,Asia/Dubai
