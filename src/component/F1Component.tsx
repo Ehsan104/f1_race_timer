@@ -44,6 +44,7 @@ const F1Component: React.FC = () => {
       />
       {nextRace && <h2 className="next-race">Next Race: {nextRace}</h2>}
       {nextRaceDate && <RaceCountdown raceDate={nextRaceDate} onRaceEnd={handleRaceEnd} />}
+      <div className="separator"></div>
       <div className="future-races">
         <h3>Future Races</h3>
         <ul>
