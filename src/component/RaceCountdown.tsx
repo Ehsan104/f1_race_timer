@@ -11,22 +11,14 @@ interface TimeRemaining {
 
 const calculateTimeRemaining = (raceDate: string, timeZone: string): TimeRemaining | null => {
   const now = new Date();
-
-  // Convert now to the specified time zone
   const nowInZone = toZonedTime(now, timeZone);
-
-  // Convert race date to a Date object in the specified time zone
   const raceDateObj = toZonedTime(new Date(raceDate), timeZone);
-
   const timeDifference = raceDateObj.getTime() - nowInZone.getTime();
 
-  // Check if the race date is in the past
   if (timeDifference <= 0) {
-    console.error("Race date is in the past");
     return null;
   }
 
-  // Calculate the time remaining
   const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -106,10 +98,10 @@ const RaceCountdown: React.FC<RaceCountdownProps> = ({ raceDate, timeZone, onRac
 
   return (
     <div className="time-circles">
-      <CircularProgress value={timeRemaining.days} max={365} label="Days" color="#ff4500" /> {/* Red for days */}
-      <CircularProgress value={timeRemaining.hours} max={24} label="Hours" color="#f0ad4e" /> {/* Yellow for hours */}
-      <CircularProgress value={timeRemaining.minutes} max={60} label="Minutes" color="#28a745" /> {/* Green for minutes */}
-      <CircularProgress value={timeRemaining.seconds} max={60} label="Seconds" color="#007bff" /> {/* Blue for seconds */}
+      <CircularProgress value={timeRemaining.days} max={365} label="Days" color="#ff4500" />
+      <CircularProgress value={timeRemaining.hours} max={24} label="Hours" color="#f0ad4e" />
+      <CircularProgress value={timeRemaining.minutes} max={60} label="Minutes" color="#28a745" />
+      <CircularProgress value={timeRemaining.seconds} max={60} label="Seconds" color="#007bff" />
     </div>
   );
 };
