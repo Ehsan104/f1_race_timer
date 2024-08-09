@@ -47,30 +47,21 @@ const F1Component: React.FC = () => {
         setFutureRaces={setFutureRaces}
         setNextTimeZone={setNextTimeZone}
       />
-      {nextRace ? (
-        <>
-          <h2 className="next-race">Next Race: {nextRace}</h2>
-          {nextRaceDate && nextTimeZone && (
-            <RaceCountdown raceDate={nextRaceDate} timeZone={nextTimeZone} onRaceEnd={handleRaceEnd} />
-          )}
-          <div className="separator"></div>
-          <div className="future-races">
-            <h3>Future Races</h3>
-            <ul>
-              {futureRaces.slice(1).map((race, index) => (
-                <li key={index}>
-                  {race.Grand_Prix} - {race.Date}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      ) : (
-        <div className="season-concluded">
-          <h2>The season has concluded</h2>
-          <p>Stay tuned for the next season!</p>
-        </div>
+      {nextRace && <h2 className="next-race">Next Race: {nextRace}</h2>}
+      {nextRaceDate && nextTimeZone && (
+        <RaceCountdown raceDate={nextRaceDate} timeZone={nextTimeZone} onRaceEnd={handleRaceEnd} />
       )}
+      <div className="separator"></div>
+      <div className="future-races">
+        <h3>Future Races</h3>
+        <ul>
+          {futureRaces.slice(1).map((race, index) => (
+            <li key={index}>
+              {race.Grand_Prix} - {race.Date} 
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
