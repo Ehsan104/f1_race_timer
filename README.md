@@ -1,3 +1,5 @@
+ALTHOUGH THE COMMITS SAY THE TIMER DOESNT WORK, THE ISSUE HAS BEEN FIXED AND IT WORKS AS INTENDED!
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
