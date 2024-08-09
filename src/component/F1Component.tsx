@@ -59,7 +59,7 @@ const F1Component: React.FC = () => {
             <ul>
               {futureRaces.slice(1).map((race, index) => (
                 <li key={index}>
-                  {race.Grand_Prix} - {race.Date} at {race.Start_Time} ({race.Time_Zone})
+                  {race.Grand_Prix} - {race.Date}
                 </li>
               ))}
             </ul>
